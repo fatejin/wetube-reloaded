@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js --delay 2"
-    },
+  },
   "author": "fate jin<where9810@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -16,7 +16,8 @@
   },
   "homepage": "https://github.com/fatejin/wetube-reloaded#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
