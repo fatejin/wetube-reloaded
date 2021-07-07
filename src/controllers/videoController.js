@@ -1,10 +1,8 @@
-const fakeUser = {
-  username: "Jin",
-  loggedIn: false,
+export const trending = (req, res) => {
+  const videos = [];
+  res.render("home", { pageTitle: "Home", videos }); //trending is the rendering home. home is base.pug
 };
 
-export const trending = (req, res) =>
-  res.render("home", { pageTitle: "Home", fakeUser }); //trending is the rendering home. home is base.pug
 export const see = (req, res) => res.render("watch");
 export const edit = (req, res) => res.render("edit");
 export const search = (req, res) => res.send("Search");
