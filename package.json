@@ -7,7 +7,7 @@
     "url": "git+https://github.com/fatejin/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js --delay 2"
+    "dev": "nodemon --exec babel-node src/server.js --delay 2"
   },
   "author": "fate jin<where9810@gmail.com>",
   "license": "MIT",
@@ -17,7 +17,7 @@
   "homepage": "https://github.com/fatejin/wetube-reloaded#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.13.2",
+    "mongoose": "^5.13.3",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
