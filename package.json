@@ -7,7 +7,7 @@
     "url": "git+https://github.com/fatejin/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "Jin <where9810@gmail.com>",
   "license": "MIT",
