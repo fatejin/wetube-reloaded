@@ -7,7 +7,6 @@ export const edit = (req, res) => {
 };
 export const search = (req, res) => res.send("Search");
 export const upload = (req, res) => res.send("Upload");
-
 export const deleteVideo = (req, res) => {
   return res.send("Delete Video");
 };
