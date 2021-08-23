@@ -142,22 +142,29 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const {
-    session: {
-      user: { _id },
-    },
+    session: { user },
     body: { name, email, username, location },
   } = req;
-  const updateUser = await User.findByIdAndUpdate(
-    _id,
-    {
-      name,
-      email,
-      username,
-      location,
-    },
-    { new: true }
-  );
-  req.session.user = updateUser;
+  const existsUsername = await User.exists({ username });
+  const existsEmail = await User.exists({ email });
+
+  if (
+    (user.username !== username && !existsUsername) ||
+    (user.email !== email && !existsEmail)
+  ) {
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      {
+        name,
+        email,
+        username,
+        location,
+      },
+      { new: true }
+    );
+    //session에도 업데이트
+    req.session.user = updatedUser;
+  }
   return res.redirect("/users/edit");
 };
 // req.session.user = {
