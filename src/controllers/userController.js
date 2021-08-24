@@ -142,14 +142,13 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const {
-    session: { user },
+    session: { user, avatarUrl },
     body: { name, email, username, location },
     file,
   } = req;
   console.log(file);
   const existsUsername = await User.exists({ username });
   const existsEmail = await User.exists({ email });
-
   if (
     (user.username !== username && !existsUsername) ||
     (user.email !== email && !existsEmail)
@@ -157,6 +156,7 @@ export const postEdit = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       user._id,
       {
+        avatarUrl: file ? file.path : avatarUrl,
         name,
         email,
         username,
