@@ -142,33 +142,27 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const {
-    session: { user, avatarUrl },
+    session: {
+      user: { _id, avatarUrl },
+    },
     body: { name, email, username, location },
     file,
   } = req;
-  console.log(file);
-  const existsUsername = await User.exists({ username });
-  const existsEmail = await User.exists({ email });
-  if (
-    (user.username !== username && !existsUsername) ||
-    (user.email !== email && !existsEmail)
-  ) {
-    const updatedUser = await User.findByIdAndUpdate(
-      user._id,
-      {
-        avatarUrl: file ? file.path : avatarUrl,
-        name,
-        email,
-        username,
-        location,
-      },
-      { new: true }
-    );
-    //session에도 업데이트
-    req.session.user = updatedUser;
-  }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      avatarUrl: file ? file.path : avatarUrl,
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
   return res.redirect("/users/edit");
 };
+
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
     return res.redirect("/");
