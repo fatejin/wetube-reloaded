@@ -144,7 +144,9 @@ export const postEdit = async (req, res) => {
   const {
     session: { user },
     body: { name, email, username, location },
+    file,
   } = req;
+  console.log(file);
   const existsUsername = await User.exists({ username });
   const existsEmail = await User.exists({ email });
 
