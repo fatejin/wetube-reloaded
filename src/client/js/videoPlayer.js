@@ -17,30 +17,13 @@ let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
-const videoPlayEvent = () => {
+const handlePlayClick = (e) => {
   if (video.paused) {
     video.play();
   } else {
     video.pause();
   }
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
-};
-
-const hideControlsEvent = () => {
-  if (controlsTimeout) {
-    clearTimeout(controlsTimeout);
-    controlsTimeout = null;
-  }
-  if (controlsMovementTimeout) {
-    clearTimeout(controlsMovementTimeout);
-    controlsMovementTimeout = null;
-  }
-  videoControls.classList.add("showing");
-  controlsMovementTimeout = setTimeout(hideControls, 3000);
-};
-
-const handlePlayClick = (e) => {
-  videoPlayEvent();
 };
 
 const handleMuteClick = (e) => {
@@ -101,23 +84,20 @@ const handleFullscreen = () => {
 const hideControls = () => videoControls.classList.remove("showing");
 
 const handleMouseMove = () => {
-  hideControlsEvent();
+  if (controlsTimeout) {
+    clearTimeout(controlsTimeout);
+    controlsTimeout = null;
+  }
+  if (controlsMovementTimeout) {
+    clearTimeout(controlsMovementTimeout);
+    controlsMovementTimeout = null;
+  }
+  videoControls.classList.add("showing");
+  controlsMovementTimeout = setTimeout(hideControls, 3000);
 };
 
 const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
-};
-
-const handleKeydown = (e) => {
-  if (e.keyCode === 32) {
-    videoPlayEvent();
-    hideControlsEvent();
-  }
-};
-
-const handleContainerClick = () => {
-  videoPlayEvent();
-  hideControlsEvent();
 };
 
 const handleEnded = () => {
@@ -130,12 +110,10 @@ const handleEnded = () => {
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadeddata", handleLoadedMetadata);
+video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
-videoContainer.addEventListener("click", handleContainerClick);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-window.addEventListener("keydown", handleKeydown);
